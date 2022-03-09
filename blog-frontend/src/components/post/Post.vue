@@ -13,29 +13,35 @@
 
 <script>
 /* eslint-disable */
-import { server } from "../../utils/helper";
-import axios from "axios";
-import router from "../../router";
+import { ref } from 'vue'
+import { server } from "../../utils/helper"
+import axios from "axios"
+import router from "../../router"
+import { useRoute } from 'vue-router'
+
 export default {
-  data() {
-    return {
-      id: 0,
-      post: {}
-    };
-  },
-  created() {
-    this.id = this.$route.params.id;
-    this.getPost();
-  },
-  methods: {
-    getPost() {
-      axios
-        .get(`${server.baseURL}/blog/post/${this.id}`)
-        .then(data => (this.post = data.data));
-    },
-    navigate() {
-      router.go(-1);
-    }
-  }
-};
+	setup() {
+		const route = useRoute()
+		const id = ref(0)
+		const post = ref({})
+
+		const getPost = () => {
+			axios
+				.get(`${server.baseURL}/blog/post/${id.value}`)
+				.then(data => (post.value = data.data));
+		}
+
+		const navigate = () => {
+			router.go(-1)
+		}
+
+		id.value = route.params.id
+		getPost()
+
+		return {
+			post,
+			navigate
+		}
+	}
+}
 </script>

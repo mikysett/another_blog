@@ -38,30 +38,34 @@
 
 <script>
 // @ is an alias to /src
-import { server } from "@/utils/helper";
-import axios from "axios";
+import { ref } from 'vue'
+import { server } from "@/utils/helper"
+import axios from "axios"
 
 export default {
-  data() {
-    return {
-      posts: []
-    };
-  },
-  created() {
-    this.fetchPosts();
-  },
-  methods: {
-    fetchPosts() {
-      axios
-        .get(`${server.baseURL}/blog/posts`)
-        .then(data => (this.posts = data.data));
-    },
-    deletePost(id) {
-      axios.delete(`${server.baseURL}/blog/delete?postID=${id}`).then(data => {
-        console.log(data);
-        window.location.reload();
-      });
-    }
-  }
-};
+	setup() {
+		const posts = ref([]);
+
+		const fetchPosts = () => {
+			axios
+				.get(`${server.baseURL}/blog/posts`)
+				.then(data => (posts.value = data.data));
+		};
+
+		const deletePost = (id) => {
+			axios.delete(`${server.baseURL}/blog/delete?postID=${id}`).then(data => {
+				console.log(data);
+				window.location.reload();
+			})
+		};
+
+		fetchPosts();
+		
+		return ({
+			posts,
+			fetchPosts,
+			deletePost,
+		});
+	}
+}
 </script>
