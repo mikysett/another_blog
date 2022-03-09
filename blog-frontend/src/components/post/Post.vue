@@ -11,7 +11,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 /* eslint-disable */
 import { ref } from 'vue'
 import { server } from "../../utils/helper"
@@ -19,29 +19,20 @@ import axios from "axios"
 import router from "../../router"
 import { useRoute } from 'vue-router'
 
-export default {
-	setup() {
-		const route = useRoute()
-		const id = ref(0)
-		const post = ref({})
+const route = useRoute()
+const id = ref(0)
+const post = ref({})
 
-		const getPost = () => {
-			axios
-				.get(`${server.baseURL}/blog/post/${id.value}`)
-				.then(data => (post.value = data.data));
-		}
-
-		const navigate = () => {
-			router.go(-1)
-		}
-
-		id.value = route.params.id
-		getPost()
-
-		return {
-			post,
-			navigate
-		}
-	}
+const getPost = () => {
+	axios
+		.get(`${server.baseURL}/blog/post/${id.value}`)
+		.then(data => (post.value = data.data));
 }
+
+const navigate = () => {
+	router.go(-1)
+}
+
+id.value = route.params.id
+getPost()
 </script>

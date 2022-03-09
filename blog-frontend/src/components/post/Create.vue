@@ -28,42 +28,32 @@
    </div>
 </template>
 
-<script>
+<script setup>
 /* eslint-disable */
 import { ref } from "vue"
 import axios from "axios"
 import { server } from "../../utils/helper"
 import router from "../../router"
 
-export default {
-	setup() {
-		const date_posted = ref(new Date().toLocaleDateString())
-		const postData = ref({
-			title: "",
-			description: "",
-			body: "",
-			author: "",
-			date_posted: date_posted
-		})
+const date_posted = ref(new Date().toLocaleDateString())
+const postData = ref({
+	title: "",
+	description: "",
+	body: "",
+	author: "",
+	date_posted: date_posted
+})
 
-		const createPost = () => {
-			__submitToServer(postData.value)
-		}
+const createPost = () => {
+	submitToServer(postData.value)
+}
 
-		const __submitToServer = (data) => {
-			axios
-				.post(`${server.baseURL}/blog/post`, data)
-				.then(data => {
-					console.log(data);
-					router.push({ name: "home" });
-				});
-		}
-
-		return {
-			postData,
-			createPost,
-			__submitToServer,
-		}
-	}
+const submitToServer = (data) => {
+	axios
+		.post(`${server.baseURL}/blog/post`, data)
+		.then(data => {
+			console.log(data);
+			router.push({ name: "home" });
+		});
 }
 </script>

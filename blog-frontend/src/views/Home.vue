@@ -36,36 +36,26 @@
     </div>
 </template>
 
-<script>
+<script setup>
 // @ is an alias to /src
 import { ref } from 'vue'
 import { server } from "@/utils/helper"
 import axios from "axios"
 
-export default {
-	setup() {
-		const posts = ref([]);
+const posts = ref([]);
 
-		const fetchPosts = () => {
-			axios
-				.get(`${server.baseURL}/blog/posts`)
-				.then(data => (posts.value = data.data));
-		};
+const fetchPosts = () => {
+	axios
+		.get(`${server.baseURL}/blog/posts`)
+		.then(data => (posts.value = data.data));
+};
 
-		const deletePost = (id) => {
-			axios.delete(`${server.baseURL}/blog/delete?postID=${id}`).then(data => {
-				console.log(data);
-				window.location.reload();
-			})
-		};
+const deletePost = (id) => {
+	axios.delete(`${server.baseURL}/blog/delete?postID=${id}`).then(data => {
+		console.log(data);
+		window.location.reload();
+	})
+};
 
-		fetchPosts();
-		
-		return ({
-			posts,
-			fetchPosts,
-			deletePost,
-		});
-	}
-}
+fetchPosts();
 </script>
