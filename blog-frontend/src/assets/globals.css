@@ -1,0 +1,9 @@
+:root {
+	--primary_color: #000;
+	--secondary_color: #00aa00;
+	--third_color: #0000aa;
+	
+	--primary_bg: #ffffff;
+	--secondary_bg: #aaa;
+	--third_bg: #444;
+}
