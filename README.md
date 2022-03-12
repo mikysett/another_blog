@@ -11,3 +11,6 @@ Those 3 technologies are new to me, and I'm really interested on exploring them.
 
 [Tutorial used to create this blog](https://www.digitalocean.com/community/tutorials/how-to-build-a-blog-with-nest-js-mongodb-and-vue-js)
 I discovered afterwards that the tutorial was made with Vue.js 2, to use v.3 you'll need to update the router part.
+
+## For the Dark/Light mode icons
+[https://www.flaticon.com/free-icons/ui](Ui icons created by Komar Dews and Pixel perfect - Flaticon)

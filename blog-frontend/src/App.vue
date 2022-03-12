@@ -1,7 +1,7 @@
 <template>
-	<main-menu />
+	<main-menu :darkMode="darkMode" @toggle-style-mode="toggleStyleMode()" />
 	<div id="body-wrapper">
-		<router-view/>
+		<router-view class="main-content" />
 		<side-info></side-info>
 	</div>
 	<main-footer />
@@ -11,21 +11,55 @@
 import MainMenu from '@/components/MainMenu'
 import SideInfo from '@/components/SideInfo'
 import MainFooter from '@/components/MainFooter'
+import { ref } from 'vue'
+
+const darkMode = ref(null)
+
+const initStyleMode = () => {
+	if (window.matchMedia
+		&& window.matchMedia("(prefers-color-scheme: dark)").matches) {
+		darkMode.value = true
+	} else {
+		darkMode.value = false
+	}
+	setStyleModeInDocument()
+}
+
+const setStyleModeInDocument = () => {
+	if (darkMode.value === true)
+		document.documentElement.setAttribute('style-mode', 'dark')
+	else
+		document.documentElement.setAttribute('style-mode', 'light')
+}
+
+const toggleStyleMode = () => {
+	darkMode.value = !darkMode.value
+	setStyleModeInDocument()
+}
+
+initStyleMode()
 </script>
 
 <style>
+@import './assets/reset.css';
+@import './assets/globals.css';
+
+body {
+	background: var(--primary_bg);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #2c3e50;
+  color: var(--primary_color);
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: var(--secondary_color);
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: var(secondary_color);
 }
 
 #body-wrapper {
@@ -33,7 +67,10 @@ nav a.router-link-exact-active {
 	grid-template-columns: 4fr 1fr;
 	max-width: 1024px;
 	margin: 0 auto;
-	padding: 12px 12px;
+	padding: 12px 0;
 }
-@import './assets/globals.css';
+
+.main-content {
+	padding: 0px 12px;
+}
 </style>

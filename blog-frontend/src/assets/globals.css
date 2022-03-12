@@ -1,9 +1,19 @@
-:root {
-	--primary_color: #000;
-	--secondary_color: #00aa00;
-	--third_color: #0000aa;
-	
-	--primary_bg: #ffffff;
-	--secondary_bg: #aaa;
-	--third_bg: #444;
+[style-mode='dark'] body {
+		--primary_color: #eee;
+		--secondary_color: #00aa00;
+		--third_color: #0000aa;
+		
+		--primary_bg: #000;
+		--secondary_bg: #444;
+		--third_bg: #666;
+}
+
+[style-mode='light'] body {
+		--primary_color: #000;
+		--secondary_color: #00aa00;
+		--third_color: #0000aa;
+		
+		--primary_bg: #ffffff;
+		--secondary_bg: #aaa;
+		--third_bg: #444;
 }

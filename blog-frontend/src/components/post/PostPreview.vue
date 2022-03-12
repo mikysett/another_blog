@@ -1,11 +1,15 @@
 <template>
-	<div>
+	<div class="post-preview">
 		<h2 class="title">
 			<router-link class="title-link" :to="{name: 'Post', params: {id: post._id}}">
 				{{ post.title }}
 			</router-link>
 		</h2>
-		<p>{{ post.body }}</p>
+		<div class="info">
+			<!-- <small>by: {{ post.author}}</small> -->
+			<small>Posted on: {{ post.date_posted}}</small>
+		</div>
+		<p>{{ post.description }}</p>
 		<div>
 			<div>
 				<router-link :to="{name: 'Edit', params: {id: post._id}}">Edit Post </router-link>
@@ -13,10 +17,6 @@
 			</div>
 		</div>
 
-		<div>
-			<small>Posted on: {{ post.date_posted}}</small><br/>
-			<small>by: {{ post.author}}</small>
-		</div>
 	</div>
 </template>
 
@@ -40,8 +40,16 @@ const deletePost = (id) => {
 </script>
 
 <style scoped>
+.post-preview {
+	padding: 20px 0;
+}
+
 .title {
 	font-size: 42px;
+}
+
+.info {
+	text-align: right;
 }
 
 .title-link {
