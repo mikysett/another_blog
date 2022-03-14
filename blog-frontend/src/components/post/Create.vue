@@ -1,48 +1,20 @@
 <template>
-  <div>
-       <div>
-         <h2> Create Post </h2>
-         <form @submit.prevent="createPost">
-              <div>
-               <label for="title"> Title </label>
-               <input type="text" id="title" v-model="postData.title" name="title" placeholder="Enter title">
-              </div>
-             <div>
-                 <label for="description"> Description </label>
-                 <input type="text" id="description" v-model="postData.description" name="description" placeholder="Enter Description">
-             </div>
-             <div>
-                 <label for="body"> Write Content </label>
-                 <textarea id="body" cols="30" rows="5" v-model="postData.body"></textarea>
-             </div>
-             <div>
-                 <label for="author"> Author </label>
-                 <input type="text" id="author" v-model="postData.author" name="author">
-             </div>
-
-             <div>
-            	<button type="submit"> Create Post </button>
-             </div> 
-         </form>
-       </div>
-   </div>
+	<div>
+		<div>
+			<h2> Create Post </h2>
+			<PostForm @post-validated="(post) => createPost(post)" />
+		</div>
+	</div>
 </template>
 
 <script setup>
 /* eslint-disable */
-import { ref } from "vue"
 import axios from "axios"
 import { server } from "../../utils/helper"
 import router from "../../router"
+import PostForm from '@/components/post/PostForm'
 
-const postData = ref({
-	title: "",
-	description: "",
-	body: "",
-	author: "",
-})
-
-const createPost = () => {
+const createPost = (postData) => {
 	submitToServer(postData.value)
 }
 
