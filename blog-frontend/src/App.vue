@@ -4,7 +4,7 @@
 		<router-view class="main-content" />
 		<side-info></side-info>
 	</div>
-	<main-footer />
+	<MainFooter />
 </template>
 
 <script setup>

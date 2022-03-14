@@ -1,27 +1,27 @@
 <template>
   <div>
-       <div class="col-md-12 form-wrapper">
+       <div>
          <h2> Create Post </h2>
-         <form id="create-post-form" @submit.prevent="createPost">
-              <div class="form-group col-md-12">
+         <form @submit.prevent="createPost">
+              <div>
                <label for="title"> Title </label>
-               <input type="text" id="title" v-model="postData.title" name="title" class="form-control" placeholder="Enter title">
+               <input type="text" id="title" v-model="postData.title" name="title" placeholder="Enter title">
               </div>
-             <div class="form-group col-md-12">
+             <div>
                  <label for="description"> Description </label>
-                 <input type="text" id="description" v-model="postData.description" name="description" class="form-control" placeholder="Enter Description">
+                 <input type="text" id="description" v-model="postData.description" name="description" placeholder="Enter Description">
              </div>
-             <div class="form-group col-md-12">
+             <div>
                  <label for="body"> Write Content </label>
-                 <textarea id="body" cols="30" rows="5" v-model="postData.body" class="form-control"></textarea>
+                 <textarea id="body" cols="30" rows="5" v-model="postData.body"></textarea>
              </div>
-             <div class="form-group col-md-12">
+             <div>
                  <label for="author"> Author </label>
-                 <input type="text" id="author" v-model="postData.author" name="author" class="form-control">
+                 <input type="text" id="author" v-model="postData.author" name="author">
              </div>
 
-             <div class="form-group col-md-4 pull-right">
-                 <button class="btn btn-success" type="submit"> Create Post </button>
+             <div>
+            	<button type="submit"> Create Post </button>
              </div> 
          </form>
        </div>
@@ -35,13 +35,11 @@ import axios from "axios"
 import { server } from "../../utils/helper"
 import router from "../../router"
 
-const date_posted = ref(new Date().toLocaleDateString())
 const postData = ref({
 	title: "",
 	description: "",
 	body: "",
 	author: "",
-	date_posted: date_posted
 })
 
 const createPost = () => {

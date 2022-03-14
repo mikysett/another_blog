@@ -32,6 +32,7 @@ nav {
 }
 
 .mode-img {
+	cursor: pointer;
 	max-width: 30px;
 }
 </style>
