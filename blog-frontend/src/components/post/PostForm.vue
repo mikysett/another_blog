@@ -10,7 +10,9 @@
 		</div>
 		<div>
 			<label for="body"> Write Content </label>
-			<textarea id="body" v-model="postData.body"></textarea>
+			<tip-tap
+				:content="postData.body"
+				@contentUpdated="(body) => updateBody(body)" />
 		</div>
 		<div>
 			<label for="author"> Author </label>
@@ -20,7 +22,6 @@
 			<input type="checkbox" id="hidden_checkbox" v-model="postData.hidden" />
 			<label for="hidden_checkbox">Hidden post</label>
 		</div>
-
 		<div>
 			<button type="submit"> {{ isNewPost ? 'Create' : 'Edit' }} Post </button>
 		</div> 
@@ -28,7 +29,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref } from 'vue'
+// eslint-disable-next-line
+import { useEditor, EditorContent } from '@tiptap/vue-3'
+// eslint-disable-next-line
+import StarterKit from '@tiptap/starter-kit'
+import TipTap from '@/components/post/TipTap'
 
 const props = defineProps(['post'])
 const emit = defineEmits(['postValidated'])
@@ -47,10 +53,16 @@ const validatePost = () => {
 	emit('postValidated', postData)
 }
 
+const updateBody = (body) => {
+	postData.value.body = body
+}
+
 if (props.post != null) {
 	isNewPost.value = false
 	// eslint-disable-next-line
 	postData.value = props.post
 }
+
+console.log(postData.value)
 
 </script>

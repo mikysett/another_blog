@@ -6,13 +6,13 @@
 		<hr>
 		<h2>{{ post.title }}</h2>
 		<h5>Post by {{post.author}}, {{post.date_posted}}.</h5>
-		<p>{{ post.body }}</p>
+		<p v-html="post.body"></p>
 	</div>
 </template>
 
 <script setup>
 /* eslint-disable */
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { server } from "../../utils/helper"
 import axios from "axios"
 import router from "../../router"
@@ -21,6 +21,10 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 const id = ref(0)
 const post = ref({})
+
+onMounted(() => {
+	Prism.highlightAll()
+})
 
 const getPost = () => {
 	axios

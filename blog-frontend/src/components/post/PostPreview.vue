@@ -17,7 +17,14 @@
 				<button v-on:click="deletePost(post._id)">Delete Post</button>
 			</div>
 		</div>
-
+		<pre>
+		<code class="language-c">
+			this is a test;
+			int main(int argc, char **argv) {
+				return (0);
+			}
+		</code>
+	</pre>
 	</div>
 </template>
 
@@ -39,13 +46,9 @@ const printDateFromString = (dateString) => {
 
 const deletePost = (id) => {
 	axios.delete(`${server.baseURL}/blog/delete?postID=${id}`).then(data => {
-		console.log(data);
 		window.location.reload();
 	})
 };
-
-console.log(props.post)
-
 </script>
 
 <style scoped>
