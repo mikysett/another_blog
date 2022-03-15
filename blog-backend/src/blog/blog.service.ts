@@ -10,7 +10,7 @@ export class BlogService {
     constructor(@InjectModel('Post') private readonly postModel: Model<Post>) { }
 
     async getPosts(): Promise<Post[]> {
-        const posts = await this.postModel.find().exec();
+        const posts = await this.postModel.find().sort({date_posted: -1}).exec();
         return posts;
     }
 
