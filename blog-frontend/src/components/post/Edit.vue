@@ -31,7 +31,7 @@ const id = ref(0)
 const editPost = (postData) => {
 	axios
 		.put(`${server.baseURL}/blog/edit?postID=${id.value}`, postData.value)
-		.then(data => {
+		.then(() => {
 			router.push({ name: "home" })
 		})
 }

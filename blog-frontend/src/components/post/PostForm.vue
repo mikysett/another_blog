@@ -49,6 +49,7 @@ const validatePost = () => {
 
 if (props.post != null) {
 	isNewPost.value = false
+	// eslint-disable-next-line
 	postData.value = props.post
 }
 
