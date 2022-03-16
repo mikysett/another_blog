@@ -4,28 +4,11 @@
 		<router-view class="main-content" />
 		<side-info></side-info>
 	</div>
-	<pre>
-		<code class="language-c">
-			this is a test;
-			int main(int argc, char **argv) {
-				return (0);
-			}
-		</code>
-	</pre>
 	<MainFooter />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
-// eslint-disable-next-line
-import Prism from 'prismjs'
-import 'prismjs/themes/prism.css'
-import 'prismjs/components/prism-bash'
-import 'prismjs/components/prism-c'
-import 'prismjs/components/prism-cpp'
-import 'prismjs/components/prism-rust'
-import 'prismjs/components/prism-lisp'
 
 import MainMenu from '@/components/MainMenu'
 import SideInfo from '@/components/SideInfo'
