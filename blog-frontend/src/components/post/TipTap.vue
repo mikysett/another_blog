@@ -93,19 +93,36 @@ const editor = useEditor({
 
 
 <style scoped>
-.editor {
-	padding: 12px 0;
-}
-
 .menubar {
 	background: var(--secondary_bg);
 	padding: 8px;
 	margin-bottom: 2px;
 }
 
+.menubar button {
+	border: 1px solid var(--third_bg);
+	background: none;
+	color: var(--primary_color);
+	cursor: pointer;
+	padding: 4px 8px;
+	margin: 0 1px;
+}
+
+.menubar button:hover {
+	background: var(--third_bg);
+	color: var(--primary_color);
+}
+
+
 .content-area {
 	background: var(--secondary_bg);
 	padding: 20px;
+}
+
+.menubar {
+	position: sticky;
+	top: 0;
+	z-index: 1;
 }
 
 .menubar span {
@@ -113,5 +130,13 @@ const editor = useEditor({
 	padding: 8px 6px;
 	background: var(--third_bg);
 
+}
+</style>
+
+<style>
+.ProseMirror pre {
+	background: var(--third_bg);
+	padding: 20px;
+	border-radius: 4px;
 }
 </style>

@@ -1,19 +1,36 @@
 [style-mode='dark'] body {
-		--primary_color: #eee;
-		--secondary_color: #00aa00;
-		--third_color: #0000aa;
-		
-		--primary_bg: #000;
-		--secondary_bg: #444;
-		--third_bg: #666;
+	--primary_color: #eee;
+	--secondary_color: #a163ff;
+	--third_color: #2a2aff;
+
+	--primary_bg: #120a1e;
+	--secondary_bg: #2c1948;
+	--third_bg: #a163ff;
 }
 
 [style-mode='light'] body {
-		--primary_color: #000;
-		--secondary_color: #00aa00;
-		--third_color: #0000aa;
-		
-		--primary_bg: #ffffff;
-		--secondary_bg: #aaa;
-		--third_bg: #444;
+	--primary_color: #312e26;
+	--secondary_color: #00aa00;
+	--third_color: #0000aa;
+
+	--primary_bg: #fff0cb;
+	--secondary_bg: #ffe39f;
+	--third_bg: #0a0;
+}
+
+body {
+	font-size: 18px;
+}
+
+.std-btn {
+	padding: 8px 12px;
+	background: var(--secondary_bg);
+	color: var(--primary_color);
+	border: 0px solid black;
+	cursor: pointer;
+	font-size: 22px;
+}
+
+.std-btn:hover, .std-btn:focus {
+	background: var(--third_bg);
 }

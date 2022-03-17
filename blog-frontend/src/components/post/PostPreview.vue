@@ -7,7 +7,7 @@
 		</h2>
 		<div class="info">
 			<!-- <small>by: {{ post.author}}</small> -->
-			<small>Posted on: {{ printDateFromString(post.date_posted) }}
+			<small class="date">{{ printDateFromString(post.date_posted) }}
 			</small>
 		</div>
 		<p>{{ post.description }}</p>
@@ -33,7 +33,7 @@ const props = defineProps(['post'])
 
 const printDateFromString = (dateString) => {
 	let date = new Date(dateString)
-	return (date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear())
+	return (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear())
 }
 
 const deletePost = (id) => {
@@ -50,10 +50,18 @@ const deletePost = (id) => {
 
 .title {
 	font-size: 42px;
+	font-family: 'Noto Serif';
+}
+
+.date {
+	padding: 4px 8px;
+	border: 1px solid var(--secondary_color);
+	border-radius: 4px;
 }
 
 .info {
 	text-align: right;
+	margin: 12px 0;
 }
 
 .title-link {

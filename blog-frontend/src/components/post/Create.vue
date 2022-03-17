@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<div>
-			<h2> Create Post </h2>
 			<PostForm @post-validated="(post) => createPost(post)" />
 		</div>
 	</div>

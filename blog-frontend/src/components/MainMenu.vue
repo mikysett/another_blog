@@ -22,13 +22,14 @@ defineProps(['darkMode'])
 
 <style scoped>
 nav {
-	max-width: 1024px;
+	width: 100%;
 	margin: 0 auto;
 	padding: 12px 12px;
 	border-bottom: 2px solid var(--third_bg);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	align-self: start;
 }
 
 .mode-img {

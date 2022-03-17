@@ -5,3 +5,81 @@
 .editor-content em {
 	font-style: italic;
 }
+
+.editor-content h1,
+.editor-content h2,
+.editor-content h3,
+.editor-content h4,
+.editor-content h5,
+.editor-content h6 {
+	color: var(--secondary_color);
+	font-family: 'Noto Serif';
+}
+
+.editor-content h1 {
+	font-size: 56px;
+}
+
+.editor-content h2 {
+	font-size: 48px;
+}
+
+.editor-content h3 {
+	font-size: 36px;
+}
+
+.editor-content h4 {
+	font-size: 24px;
+}
+
+.editor-content h5 {
+	font-size: 20px;
+}
+
+.editor-content h6 {
+	font-size: 18px;
+}
+
+.editor-content ul {
+	list-style-type: disc;
+	padding: 12px 22px
+}
+
+.editor-content ol {
+	list-style-type: upper-roman;
+	padding: 12px 22px
+}
+
+.editor-content blockquote {
+	padding: 20px;
+	background: var(--secondary_bg);
+	position: relative;
+}
+
+.editor-content blockquote::before,
+.editor-content blockquote::after {
+	position: absolute;
+	font-size: 120px;
+	opacity: 0.1;
+}
+
+.editor-content blockquote::before {
+	content: "“";
+	top: 0;
+	left: 0;
+}
+
+.editor-content blockquote::after {
+	content: "”";
+	right: 0;
+	bottom: 0;
+	height: 50px;
+}
+
+.editor-content hr {
+	color: var(--third_bg);
+}
+
+.editor-content p {
+	padding: 4px 0
+}

@@ -5,8 +5,8 @@
 		</h4>
 		<hr>
 		<h2>{{ post.title }}</h2>
-		<h5>Post by {{post.author}}, {{post.date_posted}}.</h5>
-		<div v-html="post.body"></div>
+		<h5>{{ printDateFromString(post.date_posted) }}</h5>
+		<div class="editor-content" v-html="post.body"></div>
 	</div>
 </template>
 
@@ -43,6 +43,12 @@ const getPost = () => {
 			post.value = data.data
 			Prism.highlightAll()
 		});
+}
+
+// This function is reimplemented also in PostPreview, very bad code repetition
+const printDateFromString = (dateString) => {
+	let date = new Date(dateString)
+	return (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear())
 }
 
 const navigate = () => {

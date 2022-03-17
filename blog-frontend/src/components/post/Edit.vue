@@ -6,7 +6,6 @@
 		</small>
 	</h4>
 		<div>
-			<h2> Edit Post </h2>
 			<PostForm v-if="postFetched"
 				:post="post"
 				@post-validated="(editedPost) => editPost(editedPost)" />

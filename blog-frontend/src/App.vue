@@ -43,16 +43,27 @@ initStyleMode()
 
 <style>
 @import './assets/reset.css';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap');
 @import './assets/globals.css';
 @import './assets/editor_content.css';
 
-body {
+.global-styles {
+	font-size: 20px;
 	background: var(--primary_bg);
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: var(--primary_color);
+	font-family: 'Ubuntu', 'Noto Serif', serif;
+	color: var(--primary_color);
+	max-width: 1024px;
+	min-height: 100vh;
+	margin: 0 auto;
+	display: grid;
+	column-gap: 0;
+	row-gap: 0;
+	align-content: start;
+	grid-template-rows: auto 1fr auto;
 }
 
 nav a {
@@ -67,7 +78,7 @@ nav a.router-link-exact-active {
 #body-wrapper {
 	display: grid;
 	grid-template-columns: 4fr 1fr;
-	max-width: 1024px;
+	width: 100%;
 	margin: 0 auto;
 	padding: 12px 0;
 }
