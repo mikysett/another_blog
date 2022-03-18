@@ -9,3 +9,11 @@ export class ValidateObjectId implements PipeTransform<string> {
        return value;
    }
 }
+
+export class ValidateObjectSlug implements PipeTransform<string> {
+	async transform(value: string, metadata: ArgumentMetadata) {
+		// TODO implement proper check, right now this can't fail, this is bad
+		return value;
+	}
+ }
+ 

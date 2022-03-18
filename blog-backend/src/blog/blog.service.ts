@@ -21,6 +21,13 @@ export class BlogService {
         return post;
     }
 
+	async getPostBySlug(postSlug): Promise<Post> {
+        const post = await this.postModel
+            .findOne({slug: postSlug})
+            .exec();
+        return post;
+    }
+
     async addPost(createPostDTO: CreatePostDTO): Promise<Post> {
         const newPost = await new this.postModel(createPostDTO);
         return newPost.save();
@@ -38,5 +45,12 @@ export class BlogService {
         return deletedPost;
     }
 
+	loginUser(credentials): boolean {
+		if (credentials.user == 'admin'
+			&& credentials.password == 'admin')
+			return (true)
+		else
+			return (false)
+    }
 }
 

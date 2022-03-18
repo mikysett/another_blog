@@ -1,16 +1,19 @@
 <template>
 	<div class="post-preview">
 		<h2 class="title">
-			<router-link class="title-link" :to="{name: 'Post', params: {id: post._id}}">
+			<router-link class="title-link" :to="{name: 'Post', params: {slug: getSlug(post.slug)}}">
 				{{ post.title }}
 			</router-link>
 		</h2>
-		<div class="info">
-			<!-- <small>by: {{ post.author}}</small> -->
-			<small class="date">{{ printDateFromString(post.date_posted) }}
-			</small>
+		<div class="extra-info">
+			<div v-if="Object.keys(post).length !== 0 && post.tags.length !== 0" class="tags">
+				<span v-for="tag in post.tags" :key="tag" class="sgl-tag">
+					{{ tag }}
+				</span>
+			</div>
+			<h5>{{ printDateFromString(post.date_posted) }}</h5>
 		</div>
-		<p>{{ post.description }}</p>
+		<p class="description">{{ post.description }}</p>
 		<div>
 			<div>
 				<router-link :to="{name: 'Edit', params: {id: post._id}}">Edit Post </router-link>
@@ -41,6 +44,13 @@ const deletePost = (id) => {
 		window.location.reload();
 	})
 };
+
+const getSlug = (slug) => {
+	if (!slug || slug === "")
+		return ("404-no-slug")
+	else
+		return slug
+}
 </script>
 
 <style scoped>
@@ -53,12 +63,6 @@ const deletePost = (id) => {
 	font-family: 'Noto Serif';
 }
 
-.date {
-	padding: 4px 8px;
-	border: 1px solid var(--secondary_color);
-	border-radius: 4px;
-}
-
 .info {
 	text-align: right;
 	margin: 12px 0;
@@ -67,5 +71,9 @@ const deletePost = (id) => {
 .title-link {
 	color: var(--secondary_color);
 	text-decoration: none;
+}
+
+.description {
+	line-height: 1.4;
 }
 </style>

@@ -13,7 +13,7 @@ CommentSchema.add({ comments: [CommentSchema] })
 
 export const BlogSchema = new mongoose.Schema({
 	title: String,
-	slug: String,
+	slug: { type: String, required: true, default: "" },
     description: String,
     body: String,
     author: String,

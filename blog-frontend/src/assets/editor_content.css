@@ -1,3 +1,7 @@
+.editor-content {
+	line-height: 1.4;
+}
+
 .editor-content strong {
 	font-weight: bold;
 }
@@ -82,4 +86,16 @@
 
 .editor-content p {
 	padding: 4px 0
+}
+
+.title {
+	font-size: 42px;
+	font-family: 'Noto Serif';
+	color: var(--secondary_color);
+}
+
+.extra-info {
+	display: flex;
+	justify-content: space-between;
+	padding: 12px 0;
 }

@@ -1,11 +1,14 @@
 <template>
 	<div class="line-numbers">
-		<h4>
-			<small><button v-on:click="navigate()"> View All Posts </button></small>
-		</h4>
-		<hr>
-		<h2>{{ post.title }}</h2>
-		<h5>{{ printDateFromString(post.date_posted) }}</h5>
+		<h2 class="title">{{ post.title }}</h2>
+		<div class="extra-info">
+			<div v-if="Object.keys(post).length !== 0 && post.tags.length !== 0" class="tags">
+				<span v-for="tag in post.tags" :key="tag" class="sgl-tag">
+					{{ tag }}
+				</span>
+			</div>
+			<h5>{{ printDateFromString(post.date_posted) }}</h5>
+		</div>
 		<div class="editor-content" v-html="post.body"></div>
 	</div>
 </template>
@@ -33,12 +36,12 @@ import router from "../../router"
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const id = ref(0)
+const slug = ref(0)
 const post = ref({})
 
 const getPost = () => {
 	axios
-		.get(`${server.baseURL}/blog/post/${id.value}`)
+		.get(`${server.baseURL}/blog/post/${slug.value}`)
 		.then(data => {
 			post.value = data.data
 			Prism.highlightAll()
@@ -51,14 +54,10 @@ const printDateFromString = (dateString) => {
 	return (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear())
 }
 
-const navigate = () => {
-	router.go(-1)
-}
-
 onUpdated(() => {
 	Prism.highlightAll()
 })
 
-id.value = route.params.id
+slug.value = route.params.slug
 getPost()
 </script>

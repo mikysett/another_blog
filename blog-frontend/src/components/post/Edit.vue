@@ -37,7 +37,7 @@ const editPost = (postData) => {
 
 const getPost = () => {
 	axios
-	.get(`${server.baseURL}/blog/post/${id.value}`)
+	.get(`${server.baseURL}/blog/post-id/${id.value}`)
 	.then(data => {
 		post.value = data.data
 		postFetched.value = true

@@ -34,3 +34,9 @@ body {
 .std-btn:hover, .std-btn:focus {
 	background: var(--third_bg);
 }
+
+@media only screen and (max-width: 768px) {
+	#body-wrapper {
+		grid-template-columns: 1fr;
+	}
+}
