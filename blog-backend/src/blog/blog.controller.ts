@@ -77,14 +77,15 @@ export class BlogController {
 		@Res({passthrough: true}) res,
 		@Body() credentials) {
         const isUserValidated = this.blogService.loginUser(credentials);
-        if (!isUserValidated) throw new UnauthorizedException("Bad credentials!");
+        if (!isUserValidated)
+			throw new UnauthorizedException("Bad credentials!");
 
-		const jwt = await this.jwtService.signAsync({user: credentials.user})
+		const jwt = await this.jwtService.signAsync({username: credentials.username})
 
 		res.cookie('jwt', jwt, {httpOnly: true})
 
         return {
-			message: 'success'
+			username: credentials.username
 		};
     }
 

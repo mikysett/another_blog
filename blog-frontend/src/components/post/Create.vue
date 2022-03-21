@@ -19,7 +19,7 @@ const createPost = (postData) => {
 
 const submitToServer = (data) => {
 	axios
-		.post(`${server.baseURL}/blog/post`, data)
+		.post(`${server.baseURL}/blog/post`, data, { withCredentials: true })
 		.then(() => {
 			router.push({ name: "home" });
 		});

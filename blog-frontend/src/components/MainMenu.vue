@@ -2,8 +2,7 @@
   <nav>
 	<h1>Hackers&Climbers</h1>
 	<div class="menu-links">
-		<router-link to="/">Home</router-link> |
-		<router-link to="/create">Create</router-link>
+		<router-link to="/">Home</router-link>
 	</div>
 	<div class="style-mode" @click="$emit('toggle-style-mode')">
 		<img class="mode-img" v-if="darkMode"

@@ -41,7 +41,7 @@ const post = ref({})
 
 const getPost = () => {
 	axios
-		.get(`${server.baseURL}/blog/post/${slug.value}`)
+		.get(`${server.baseURL}/blog/post/${slug.value}`, { withCredentials: true })
 		.then(data => {
 			post.value = data.data
 			Prism.highlightAll()

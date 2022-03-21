@@ -2,6 +2,9 @@
 	<div class="post-preview">
 		<h2 class="title">
 			<router-link class="title-link" :to="{name: 'Post', params: {slug: getSlug(post.slug)}}">
+				<span v-if="store.getters.getLoginStatus === 'success'">
+					{{ post.hidden ? "[DRAFT]" : "[PUBLISHED]" }}
+				</span>
 				{{ post.title }}
 			</router-link>
 		</h2>
@@ -14,11 +17,9 @@
 			<h5>{{ printDateFromString(post.date_posted) }}</h5>
 		</div>
 		<p class="description">{{ post.description }}</p>
-		<div>
-			<div>
-				<router-link :to="{name: 'Edit', params: {id: post._id}}">Edit Post </router-link>
-				<button v-on:click="deletePost(post._id)">Delete Post</button>
-			</div>
+		<div v-if="store.getters.getLoginStatus === 'success'">
+			<router-link :to="{name: 'Edit', params: {id: post._id}}">Edit Post </router-link>
+			<button v-on:click="deletePost(post._id)">Delete Post</button>
 		</div>
 	</div>
 </template>
@@ -26,9 +27,10 @@
 <script setup>
 /* eslint-disable */
 import { server } from "../../utils/helper"
+import { ref } from 'vue'
+import store from "@/store"
 import axios from "axios"
 import { useRoute } from 'vue-router'
-import { ref } from 'vue'
 
 const route = useRoute()
 
@@ -40,9 +42,10 @@ const printDateFromString = (dateString) => {
 }
 
 const deletePost = (id) => {
-	axios.delete(`${server.baseURL}/blog/delete?postID=${id}`).then(data => {
-		window.location.reload();
-	})
+	axios.delete(`${server.baseURL}/blog/delete?postID=${id}`, { withCredentials: true })
+		.then(data => {
+			window.location.reload();
+		})
 };
 
 const getSlug = (slug) => {

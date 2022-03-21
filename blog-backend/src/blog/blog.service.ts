@@ -46,11 +46,10 @@ export class BlogService {
     }
 
 	loginUser(credentials): boolean {
-		if (credentials.user == 'admin'
+		if (credentials.username == 'admin'
 			&& credentials.password == 'admin')
 			return (true)
 		else
 			return (false)
     }
 }
-

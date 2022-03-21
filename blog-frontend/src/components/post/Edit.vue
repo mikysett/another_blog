@@ -29,7 +29,7 @@ const id = ref(0)
 
 const editPost = (postData) => {
 	axios
-		.put(`${server.baseURL}/blog/edit?postID=${id.value}`, postData.value)
+		.put(`${server.baseURL}/blog/edit?postID=${id.value}`, postData.value, { withCredentials: true })
 		.then(() => {
 			router.push({ name: "home" })
 		})
@@ -37,7 +37,7 @@ const editPost = (postData) => {
 
 const getPost = () => {
 	axios
-	.get(`${server.baseURL}/blog/post-id/${id.value}`)
+	.get(`${server.baseURL}/blog/post-id/${id.value}`, { withCredentials: true })
 	.then(data => {
 		post.value = data.data
 		postFetched.value = true

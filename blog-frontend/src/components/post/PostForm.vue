@@ -75,8 +75,6 @@ const updateBody = (body) => {
 }
 
 const updateSlug = () => {
-	console.log(postData.value)
-	console.log(postData.value.slug);
 	if (postData.value.slug === "") {
 		postData.value.slug = postData.value.title
 			.trim()
@@ -106,8 +104,6 @@ if (props.post != null) {
 	// eslint-disable-next-line
 	postData.value = props.post
 }
-
-console.log(postData.value)
 </script>
 
 <style>
