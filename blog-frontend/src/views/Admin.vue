@@ -22,16 +22,19 @@
 <script setup>
 // @ is an alias to /src
 import { ref } from 'vue'
+import { useStore } from 'vuex'
 import { server } from "@/utils/helper"
 import axios from "axios"
 import PostPreview from '@/components/post/PostPreview'
 
+const store = useStore()
 const posts = ref([]);
 const postFetched = ref([false])
 
 const fetchPosts = () => {
 	axios
-		.get(`${server.baseURL}/blog/posts`)
+		.get(`${server.baseURL}/blog/admin/posts`,
+			store.getters.getAxiosToken)
 		.then(data => {
 			posts.value = data.data
 			postFetched.value = true

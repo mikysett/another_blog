@@ -1,18 +1,31 @@
-import { Controller, Get, Res, Req, HttpStatus, Param, NotFoundException, UnauthorizedException, Post, Body, Query, Put, Delete } from '@nestjs/common';
+import { Controller,
+		Request,
+		UseGuards,
+		Get,
+		Res,
+		HttpStatus,
+		Param,
+		NotFoundException,
+		Post,
+		Body,
+		Query,
+		Put,
+		Delete } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { CreatePostDTO } from './dto/create-post.dto';
 import { ValidateObjectId, ValidateObjectSlug } from '../shared/pipes/validate-object-id.pipes';
-import { userInfo } from 'os';
-import { JwtService } from '@nestjs/jwt';
-import { PassThrough } from 'stream';
-import { Response, Request } from 'express';
+import { Response } from 'express';
+
+import { AuthService } from 'src/auth/auth.service';
+import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('blog')
 export class BlogController {
 
     constructor(
+		private authService: AuthService,
 		private blogService: BlogService,
-		private jwtService: JwtService
 	) { }
 
     @Get('posts')
@@ -21,6 +34,14 @@ export class BlogController {
         return res.status(HttpStatus.OK).json(posts);
     }
 
+	@UseGuards(JwtAuthGuard)
+	@Get('admin/posts')
+    async getAdminPosts(@Res() res) {
+        const posts = await this.blogService.getAdminPosts();
+        return res.status(HttpStatus.OK).json(posts);
+    }
+
+	@UseGuards(JwtAuthGuard)
     @Get('post-id/:postID')
     async getPostByID(
 		@Res() res,
@@ -39,6 +60,7 @@ export class BlogController {
         return res.status(HttpStatus.OK).json(post);
     }
 
+	@UseGuards(JwtAuthGuard)
     @Post('/post')
     async addPost(@Res() res, @Body() createPostDTO: CreatePostDTO) {
         const newPost = await this.blogService.addPost(createPostDTO);
@@ -48,6 +70,7 @@ export class BlogController {
         })
     }
 
+	@UseGuards(JwtAuthGuard)
 	@Put('/edit')
     async editPost(
         @Res() res,
@@ -62,6 +85,7 @@ export class BlogController {
         })
     }
 
+	@UseGuards(JwtAuthGuard)
     @Delete('/delete')
     async deletePost(@Res() res, @Query('postID', new ValidateObjectId()) postID) {
         const deletedPost = await this.blogService.deletePost(postID);
@@ -72,46 +96,26 @@ export class BlogController {
         })
     }
 
-	@Post('/login')
-	async login(
-		@Res({passthrough: true}) res,
-		@Body() credentials) {
-        const isUserValidated = this.blogService.loginUser(credentials);
-        if (!isUserValidated)
-			throw new UnauthorizedException("Bad credentials!");
-
-		const jwt = await this.jwtService.signAsync({username: credentials.username})
-
-		res.cookie('jwt', jwt, {httpOnly: true})
-
-        return {
-			username: credentials.username
-		};
-    }
-
-	@Get('/user')
-	async user(
-		@Req() request: Request) {
-		try {
-			const cookie = request.cookies['jwt']
-			const data = await this.jwtService.verifyAsync(cookie)
-
-			if (!data) {
-				throw new UnauthorizedException()
-			}
-			return data
-		} catch (e) {
-			throw new UnauthorizedException()
-		}
-	}
-
+	// This command is NOT actually invalidating the token
+	// on server side
 	@Post('/logout')
 	async logout(
 		@Res({passthrough: true}) response: Response) {
 		response.clearCookie('jwt')
-		
 		return {
 			message: 'success'
 		}
+	}
+
+	@UseGuards(LocalAuthGuard)
+	@Post('/login')
+	async login(@Request() req) {
+		return this.authService.login(req.user);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Get('/profile')
+	getProfile(@Request() req) {
+		return req.user;
 	}
 }

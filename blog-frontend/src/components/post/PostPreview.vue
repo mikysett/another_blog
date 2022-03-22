@@ -1,10 +1,10 @@
 <template>
 	<div class="post-preview">
 		<h2 class="title">
+			<p v-if="store.getters.getLoginStatus === 'success'">
+				{{ post.hidden ? "[DRAFT]" : "[PUBLISHED]" }}
+			</p>
 			<router-link class="title-link" :to="{name: 'Post', params: {slug: getSlug(post.slug)}}">
-				<span v-if="store.getters.getLoginStatus === 'success'">
-					{{ post.hidden ? "[DRAFT]" : "[PUBLISHED]" }}
-				</span>
 				{{ post.title }}
 			</router-link>
 		</h2>
@@ -18,8 +18,8 @@
 		</div>
 		<p class="description">{{ post.description }}</p>
 		<div v-if="store.getters.getLoginStatus === 'success'">
-			<router-link :to="{name: 'Edit', params: {id: post._id}}">Edit Post </router-link>
-			<button v-on:click="deletePost(post._id)">Delete Post</button>
+			<router-link class="std-btn" :to="{name: 'Edit', params: {id: post._id}}">Edit Post</router-link> 
+			<button class="std-btn" v-on:click="deletePost(post._id)">Delete Post</button>
 		</div>
 	</div>
 </template>
@@ -31,8 +31,11 @@ import { ref } from 'vue'
 import store from "@/store"
 import axios from "axios"
 import { useRoute } from 'vue-router'
+import router from "../../router"
 
 const route = useRoute()
+
+const emit = defineEmits(['postDeleted'])
 
 const props = defineProps(['post'])
 
@@ -42,9 +45,10 @@ const printDateFromString = (dateString) => {
 }
 
 const deletePost = (id) => {
-	axios.delete(`${server.baseURL}/blog/delete?postID=${id}`, { withCredentials: true })
+	axios.delete(`${server.baseURL}/blog/delete?postID=${id}`,
+		store.getters.getAxiosToken)
 		.then(data => {
-			window.location.reload();
+			emit('postDeleted')
 		})
 };
 

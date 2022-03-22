@@ -58,7 +58,7 @@ const login = async () => {
 		});
 		if (loginStatus.value === 'success') {
 			formError.value = ""
-			router.push('/home')
+			router.push('/admin')
 		} else {
 			formError.value = "Bad credentials!"
 		}

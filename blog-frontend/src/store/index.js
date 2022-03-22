@@ -6,9 +6,11 @@ import { tokenAlive } from '@/shared/jwtHelper';
 const store = createStore({
 	state: {
 		authData: {
+			access_token: "",
 			username: "",
 			exp: "",
 		},
+		axios_token: "",
 		loginStatus: ""	
 	},
 	getters: {
@@ -17,6 +19,9 @@ const store = createStore({
 		},
 		getLoginStatus(state) {
 			return state.loginStatus
+		},
+		getAxiosToken(state) {
+			return state.axios_token
 		},
 		isTokenActive(state) {
 			if (!state.authData.exp) {
@@ -27,9 +32,12 @@ const store = createStore({
 	},
 	mutations: {
 		saveTokenData(state, data) {   
-			state.authData = data;
-			console.log("STATE AUTHDATA")
-			console.log(state.authData)
+			state.authData.access_token = data.access_token;
+			state.axios_token = {
+				headers: {
+					Authorization: "Bearer " + state.authData.access_token
+				}
+			}
 		},
 		setLoginStatus(state, value) {
 			state.loginStatus = value;
@@ -44,19 +52,8 @@ const store = createStore({
 					commit('setLoginStatus','failed');
 				})
 			if (response && response.data) {
-				const tokenData = await axios
-					.get(`${server.baseURL}/blog/user`, { withCredentials: true })
-					.catch((err) => {
-						console.log(err)
-						commit('setLoginStatus','failed');
-					})
-				if (tokenData && tokenData.data)
-				{
-					console.log("TOKEN DATA")
-					console.log(tokenData.data)
-					commit('saveTokenData', tokenData.data);
-					commit('setLoginStatus','success');
-				}
+				commit('saveTokenData', response.data);
+				commit('setLoginStatus','success');
 			} else {
 				commit('setLoginStatus','failed');
 			}
