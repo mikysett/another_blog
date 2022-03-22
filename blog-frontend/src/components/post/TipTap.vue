@@ -64,7 +64,12 @@
 			<button type="button" @click="editor.chain().focus().redo().run()">
 				redo
 			</button>
-			
+			<button type="button" @click="setLink" :class="{ 'is-active': editor.isActive('link') }">
+				setLink
+			</button>
+			<button type="button" @click="editor.chain().focus().unsetLink().run()" :disabled="!editor.isActive('link')">
+				unsetLink
+			</button>
 		</div>
 
 		<editor-content class="editor-content content-area" :editor="editor" />
@@ -76,6 +81,7 @@
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 // eslint-disable-next-line
 import StarterKit from '@tiptap/starter-kit'
+import Link from '@tiptap/extension-link'
 
 const props = defineProps(['content'])
 const emit = defineEmits(['contentUpdated'])
@@ -83,12 +89,45 @@ const emit = defineEmits(['contentUpdated'])
 const editor = useEditor({
 	extensions: [
 		StarterKit,
+        Link.configure({
+          openOnClick: false,
+        }),
 	],
 	content: props.content,
 	onUpdate: () => {
 		emit('contentUpdated', editor.value.getHTML())
 	}
 })
+
+const setLink = () => {
+	const previousUrl = editor.value.getAttributes('link').href
+	const url = window.prompt('URL', previousUrl)
+
+	// cancelled
+	if (url === null) {
+		return
+	}
+
+	// empty
+	if (url === '') {
+		editor.value
+			.chain()
+			.focus()
+			.extendMarkRange('link')
+			.unsetLink()
+			.run()
+
+		return
+	}
+
+	// update link
+	editor.value
+		.chain()
+		.focus()
+		.extendMarkRange('link')
+		.setLink({ href: url })
+		.run()
+}
 </script>
 
 
